@@ -1,15 +1,36 @@
+import { useSelector } from 'react-redux';
+import { all, put, takeLatest } from 'redux-saga/effects';
+
+import { ADD_PRODUCT, RESET_BASKET } from './actions';
 import { wrapProduct } from "./utils";
+import { isActionForCreator } from '../redux';
+import { getProducts } from './selectors';
 
 export default function BasketV2() {
-  return <div>Basket V2!</div>;
+  const products = useSelector(getProducts);
+
+  return (
+    <div>
+      <h3>Basket V2!</h3>
+      {products.length === 0 && <i>no products</i>}
+      <ul>
+        {products.map((p, index) => (
+          <li key={index}>{p.name}</li>
+        ))}
+      </ul>
+    </div>
+  );
 }
 
-BasketV2.logicv2 = {
-  addProduct: ({ product }) => {
-    console.log('%cBASKET PRODUCT LOGIC IS FIRED: ' + wrapProduct(product).name, 'color: yellow');
-  },
-  evaluate: ({ anotherWorker }) => {
-    console.log('%cBASKET LOGIC IS FIRED, yey!', 'color: yellow');
-    anotherWorker();
-  },
-};
+const initialState = {products:[]};
+BasketV2.reducer = (state = initialState, action) => {
+  if (action.type === RESET_BASKET) {
+    return initialState;
+  }
+
+  if (action.type === ADD_PRODUCT) {
+    return {...state, products: [...state.products, action.payload] };
+  }
+
+  return state;
+}
