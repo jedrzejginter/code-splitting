@@ -1,13 +1,13 @@
 import dynamic from 'next/dynamic';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { resetBasket } from '../basket-v2/actions';
-import { getProducts } from "../basket-v2/selectors";
+import { resetBasket } from '../basket/actions';
+import { getProducts } from "../basket/selectors";
 import { submitOrder } from '../order/actions';
 import { getIsOrderStarted } from '../order/selectors';
 import { moduleMiddleware } from '../module';
 
-const Basket = dynamic(() => import("../basket-v2").then(moduleMiddleware('basket')), { ssr: false });
+const Basket = dynamic(() => import("../basket").then(moduleMiddleware('basket')), { ssr: false });
 
 export default function Checkout() {
   const dispatch = useDispatch();

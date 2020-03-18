@@ -2,14 +2,14 @@ import dynamic from 'next/dynamic';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { addProduct } from '../basket-v2/actions';
-import { getProducts } from '../basket-v2/selectors';
+import { addProduct } from '../basket/actions';
+import { getProducts } from '../basket/selectors';
 
 import { injectSaga, injectReducer } from '../redux';
 import { getIsOrderStarted } from '../order/selectors';
 import { moduleMiddleware } from '../module';
 
-const Basket = dynamic(() => import("../basket-v2").then(moduleMiddleware('basket')), { ssr: false });
+const Basket = dynamic(() => import("../basket").then(moduleMiddleware('basket')), { ssr: false });
 
 export default function Home() {
   const dispatch = useDispatch();
