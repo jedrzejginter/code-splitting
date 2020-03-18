@@ -3,7 +3,6 @@ import { all, put, takeLatest } from 'redux-saga/effects';
 
 import { ADD_PRODUCT, RESET_BASKET } from './actions';
 import { wrapProduct } from "./utils";
-import { isActionForCreator } from '../redux';
 import { getProducts } from './selectors';
 
 export default function BasketV2() {
