@@ -1,0 +1,18 @@
+{
+  "name": "atomizer",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Jedrzej Ginter <dzeejj@gmail.com> (https://github.com/jedrzejginter)",
+  "license": "MIT",
+  "scripts": {
+    "start:dev": "next dev",
+    "start:prod": "next start",
+    "build:prod": "next build",
+    "release": "next build && next start"
+  },
+  "dependencies": {
+    "next": "9.3.1",
+    "react": "16.13.0",
+    "react-dom": "16.13.0"
+  }
+}
