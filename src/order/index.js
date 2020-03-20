@@ -1,12 +1,17 @@
-import { SUBMIT_ORDER } from "./actions";
+import { START_ORDER, SUBMIT_ORDER } from "./actions";
 
-export function reducer(state = { started: false }, action) {
+const initialState = {
+  address: null,
+  started: false,
+};
+
+export function reducer(state = initialState, action) {
   switch (action.type) {
-    case 'START_ORDER': {
-      return { started: true };
+    case START_ORDER: {
+      return { ...state, started: true, address: action.payload.address };
     }
     case SUBMIT_ORDER: {
-      return { started: false };
+      return initialState;
     }
   }
 

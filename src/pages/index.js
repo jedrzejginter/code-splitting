@@ -1,47 +1,58 @@
 import dynamic from 'next/dynamic';
-import { useState } from 'react';
+import Link from 'next/link';
+import { useState, useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { addProduct } from '../basket/actions';
-import { getProducts } from '../basket/selectors';
+import { getBasketLines } from '../basket/selectors';
 
-import { injectSaga, injectReducer } from '../redux';
-import { getIsOrderStarted } from '../order/selectors';
-import { moduleMiddleware } from '../module';
+import { startOrder } from '../order/actions';
+import { getIsOrderStarted, getAddressForOrder } from '../order/selectors';
 
-const Basket = dynamic(() => import("../basket").then(moduleMiddleware('basket')), { ssr: false });
+import Menu from '../menu';
+import { fetchDefaultMenu } from '../menu/actions';
+import { actionCreator } from '../redux/helpers';
+import AddressSearch from '../address';
+import { isBrowser } from '../utils';
 
 export default function Home() {
   const dispatch = useDispatch();
-  const [state, setState] = useState(0);
+  const [addressForOrder, setAddressForOrder] = useState('');
 
   const isStarted = useSelector(getIsOrderStarted);
-  const products = useSelector(getProducts);
+  const basketLines = useSelector(getBasketLines);
 
-  const startOrder = () => {
-    dispatch({
-      type: 'START_ORDER'
-    });
+  useEffect(() => {
+    dispatch(fetchDefaultMenu());
+  }, []);
+
+  const onStartOrder = () => {
+    dispatch(startOrder({ address: addressForOrder }));
   };
 
-  const onAddProduct = () => {
+  const onAddProduct = (p) => {
     dispatch(addProduct({
-      id: 123,
-      name: 'Me is product!',
+      id: p.id,
+      name: p.name,
+      price: p.price,
     }));
   };
 
+  const onChooseAddress = (a) => {
+    setAddressForOrder(a.name);
+  }
+
   return (
     <div>
-      {!isStarted && <button onClick={startOrder}>Begin order</button>}
-      {isStarted && <Basket />}
-      <div>
-        <h4>Me is product!</h4>
-        {isStarted
-          ? <button onClick={onAddProduct}>add me ($9.99)</button>
-          : <i>start order and buy me!</i>
-        }
-      </div>
+      {!isStarted &&
+        <AddressSearch onChooseAddress={onChooseAddress} current={addressForOrder} />
+      }
+      {!isStarted && isBrowser && (
+        <button disabled={!addressForOrder} onClick={onStartOrder}>
+          Begin order
+        </button>
+      )}
+      <Menu canAddProduct={isStarted} onAddProduct={onAddProduct} />
     </div>
   );
 }

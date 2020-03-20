@@ -1,8 +1,13 @@
 import { applyMiddleware, combineReducers, createStore } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import createSagaMiddleware from 'redux-saga';
+import { all, fork } from 'redux-saga/effects';
 
+import { addressReducer } from '../address/reducer';
+import { addressSaga } from '../address/saga';
 import { reducer as orderReducer } from '../order';
+import defaultMenuSaga from '../menu/default-menu/saga';
+import { reducer as menuReducer } from '../menu/reducer';
 
 export const loadState = () => {
   try {
@@ -26,10 +31,17 @@ export const saveState = (state) => {
 };
 
 const staticReducers = {
+  address: addressReducer,
+  menu: menuReducer,
   order: orderReducer
 };
 
-function* rootSaga() {}
+function* rootSaga() {
+  yield all([
+    fork(addressSaga),
+    fork(defaultMenuSaga),
+  ]);
+}
 
 // Configure the store
 // runSaga is middleware.run function
@@ -86,7 +98,8 @@ function configureStore() {
 
     saveState({
       basket: currState.basket,
-      order: currState.order
+      order: currState.order,
+      payments: currState.payments,
     });
   });
 

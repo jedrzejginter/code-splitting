@@ -9,3 +9,13 @@ export const getIsOrderStarted = (s) => {
 
   return false;
 }
+
+export const getAddressForOrder = (s) => {
+  const ls = getState(s);
+
+  if (ls) {
+    return ls.address;
+  }
+
+  return null;
+}

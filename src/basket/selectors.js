@@ -1,10 +1,10 @@
 const getState = (s) => s.basket;
 
-export const getProducts = (s) => {
+export const getBasketLines = (s) => {
   const ls = getState(s);
 
   if (ls) {
-    return ls.products;
+    return ls.lines || [];
   }
 
   return [];
