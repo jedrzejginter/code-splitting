@@ -25,7 +25,7 @@ export default function AddressSearch({ current, onChooseAddress }) {
       <input onChange={onChange} type="text" value={val} />
       <ul>
         {results.map((r) => (
-          <li className={current === r.name ? 'green-bg' : undefined} key={r.name}>
+          <li className={current && current.name === r.name ? 'green-bg' : undefined} key={r.name}>
             {r.name} <span onClick={() => onChooseAddress(r)} className="btn-like">use it</span>
           </li>
         ))}

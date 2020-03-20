@@ -17,6 +17,8 @@ import { isBrowser } from '../utils';
 import { moduleMiddleware } from '../module';
 import { requestProduct, resetProduct } from '../product/customize/actions';
 import { getProductForCustomize } from '../product/customize/selectors';
+import { fetchRestaurantByGeo } from '../restaurant/actions';
+import { injectSaga } from '../redux';
 
 const CustomizeProduct = dynamic(
   () => import('../product/customize').then(moduleMiddleware('product')),
@@ -25,7 +27,7 @@ const CustomizeProduct = dynamic(
 
 export default function Home() {
   const dispatch = useDispatch();
-  const [addressForOrder, setAddressForOrder] = useState('');
+  const [addressForOrder, setAddressForOrder] = useState(null);
 
   const isStarted = useSelector(getIsOrderStarted);
   const basketLines = useSelector(getBasketLines);
@@ -44,7 +46,12 @@ export default function Home() {
   }
 
   const onStartOrder = () => {
-    dispatch(startOrder({ address: addressForOrder }));
+    import('../restaurant/saga').then((mod) => {
+      injectSaga('rest', mod.restaurantSaga);
+
+      dispatch(fetchRestaurantByGeo({ lat: 0, lng: 0 }))
+      dispatch(startOrder({ restaurant: {}, address: addressForOrder }));
+    });
   };
 
   const onAddProduct = (p) => {
@@ -55,14 +62,10 @@ export default function Home() {
     }));
   };
 
-  const onChooseAddress = (a) => {
-    setAddressForOrder(a.name);
-  }
-
   return (
     <div>
       {!isStarted &&
-        <AddressSearch onChooseAddress={onChooseAddress} current={addressForOrder} />
+        <AddressSearch onChooseAddress={setAddressForOrder} current={addressForOrder} />
       }
       {!isStarted && isBrowser && (
         <button disabled={!addressForOrder} onClick={onStartOrder}>
@@ -70,9 +73,10 @@ export default function Home() {
         </button>
       )}
       <Menu
-        onCustomizeProduct={onCustomizeProduct}
         canAddProduct={isStarted}
+        canCustomizeProduct={isStarted}
         onAddProduct={onAddProduct}
+        onCustomizeProduct={onCustomizeProduct}
       />
       {productForCustomize && <CustomizeProduct product={productForCustomize} onClose={closeModal} />}
     </div>

@@ -17,7 +17,7 @@ export default function Basket({ hasButton, hasDeletion }) {
       <h3>Basket!</h3>
       {addressForOrder && (
         <div>
-          <i>Delivery to: {addressForOrder}</i>
+          <i>Delivery to: {addressForOrder.name}</i>
         </div>
       )}
       {lines.length === 0 && <i>no products</i>}
