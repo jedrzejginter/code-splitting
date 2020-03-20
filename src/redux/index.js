@@ -8,6 +8,7 @@ import { addressSaga } from '../address/saga';
 import { reducer as orderReducer } from '../order';
 import defaultMenuSaga from '../menu/default-menu/saga';
 import { reducer as menuReducer } from '../menu/reducer';
+import { productReducer } from '../product/customize/reducer';
 
 export const loadState = () => {
   try {
@@ -33,7 +34,8 @@ export const saveState = (state) => {
 const staticReducers = {
   address: addressReducer,
   menu: menuReducer,
-  order: orderReducer
+  order: orderReducer,
+  product: productReducer,
 };
 
 function* rootSaga() {

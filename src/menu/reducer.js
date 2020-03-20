@@ -24,7 +24,7 @@ export function reducer(state = initialState, action) {
         ...mapObject(c.products, (p, id) => ({
           _categoryId: c.id,
           _isPizza: p.productType === 3,
-          _isConfigurable: p.productConfig ? p.productConfig.length > 0 : false,
+          _isConfigurable: p.productType !== 1,
           id,
           name: p.name,
           price: p.price,

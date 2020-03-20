@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { SET_PAYMENT_METHOD, setPaymentMethod } from './actions';
+import { SET_PAYMENT_METHOD, RESET_PAYMENTS, setPaymentMethod } from './actions';
 import { useDispatch, useSelector } from "react-redux";
 import { getPaymentMethod } from "./selectors";
 
@@ -30,6 +30,10 @@ const initialState = {
 };
 
 Payments.reducer = (s = initialState, a) => {
+  if (a.type === RESET_PAYMENTS) {
+    return initialState;
+  }
+
   if (a.type === SET_PAYMENT_METHOD) {
     return { ...s, method: a.payload.method };
   }

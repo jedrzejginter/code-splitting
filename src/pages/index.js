@@ -14,6 +14,14 @@ import { fetchDefaultMenu } from '../menu/actions';
 import { actionCreator } from '../redux/helpers';
 import AddressSearch from '../address';
 import { isBrowser } from '../utils';
+import { moduleMiddleware } from '../module';
+import { requestProduct, resetProduct } from '../product/customize/actions';
+import { getProductForCustomize } from '../product/customize/selectors';
+
+const CustomizeProduct = dynamic(
+  () => import('../product/customize').then(moduleMiddleware('product')),
+  { ssr: false }
+);
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -21,10 +29,19 @@ export default function Home() {
 
   const isStarted = useSelector(getIsOrderStarted);
   const basketLines = useSelector(getBasketLines);
+  const productForCustomize = useSelector(getProductForCustomize);
 
   useEffect(() => {
     dispatch(fetchDefaultMenu());
   }, []);
+
+  const closeModal = () => {
+    dispatch(resetProduct());
+  }
+
+  const onCustomizeProduct = (product) => {
+    dispatch(requestProduct({ product }));
+  }
 
   const onStartOrder = () => {
     dispatch(startOrder({ address: addressForOrder }));
@@ -52,7 +69,12 @@ export default function Home() {
           Begin order
         </button>
       )}
-      <Menu canAddProduct={isStarted} onAddProduct={onAddProduct} />
+      <Menu
+        onCustomizeProduct={onCustomizeProduct}
+        canAddProduct={isStarted}
+        onAddProduct={onAddProduct}
+      />
+      {productForCustomize && <CustomizeProduct product={productForCustomize} onClose={closeModal} />}
     </div>
   );
 }

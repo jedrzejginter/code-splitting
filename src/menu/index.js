@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 import { getCategoriesWithProducts } from "./selectors";
 import { memo } from "react";
 
-export default function Menu({ canAddProduct, onAddProduct }) {
+export default function Menu({ canAddProduct, onAddProduct, onCustomizeProduct }) {
   const categories = useSelector(getCategoriesWithProducts);
 
   return (
@@ -15,6 +15,9 @@ export default function Menu({ canAddProduct, onAddProduct }) {
               <li key={p.id} style={{ border: '1px solid #ccc', margin: 10, padding: 10, width: '25%' }}>
                 {p.name}<br />
                 <button disabled={!canAddProduct} onClick={() => onAddProduct(p)}>Buy me ({p.price} pln)</button>
+                {p._isConfigurable && (
+                  <button onClick={() => onCustomizeProduct(p)}>customize</button>
+                )}
               </li>
             ))}
           </ul>

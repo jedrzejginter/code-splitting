@@ -5,6 +5,7 @@ import { resetBasket } from '../basket/actions';
 import { submitOrder } from '../order/actions';
 import { getIsOrderStarted } from '../order/selectors';
 import { moduleMiddleware } from '../module';
+import { resetPayments } from '../payments/actions';
 
 const Payments = dynamic(() => import('../payments').then(moduleMiddleware('payments')), {
   ssr: false,
@@ -18,6 +19,7 @@ export default function Checkout() {
   const onSubmitOrder = () => {
     dispatch(submitOrder());
     dispatch(resetBasket());
+    dispatch(resetPayments());
   };
 
  return (
