@@ -5,9 +5,9 @@
   "author": "Jedrzej Ginter <dzeejj@gmail.com> (https://github.com/jedrzejginter)",
   "license": "MIT",
   "scripts": {
-    "start:dev": "next dev",
-    "start:prod": "next start",
-    "build:prod": "next build",
+    "dev": "next dev",
+    "start": "next start",
+    "build": "next build",
     "release": "next build && next start"
   },
   "dependencies": {
