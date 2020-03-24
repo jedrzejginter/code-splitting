@@ -67,7 +67,7 @@ export default function Home() {
       {!isStarted &&
         <AddressSearch onChooseAddress={setAddressForOrder} current={addressForOrder} />
       }
-      {!isStarted && isBrowser && (
+      {!isStarted && (
         <button disabled={!addressForOrder} onClick={onStartOrder}>
           Begin order
         </button>
