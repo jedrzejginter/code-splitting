@@ -1,4 +1,4 @@
-import { actionCreator } from '../redux/helpers';
+import { actionCreator } from '@/redux/helpers';
 
 export const START_ORDER = 'START_ORDER';
 export const SUBMIT_ORDER = 'SUBMIT_ORDER';

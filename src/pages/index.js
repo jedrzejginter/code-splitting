@@ -3,25 +3,25 @@ import Link from 'next/link';
 import { useState, useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { addProduct } from '../basket/actions';
-import { getBasketLines } from '../basket/selectors';
+import { addProduct } from '@/basket/actions';
+import { getBasketLines } from '@/basket/selectors';
 
-import { startOrder } from '../order/actions';
-import { getIsOrderStarted, getAddressForOrder } from '../order/selectors';
+import { startOrder } from '@/order/actions';
+import { getIsOrderStarted, getAddressForOrder } from '@/order/selectors';
 
-import Menu from '../menu';
-import { fetchDefaultMenu } from '../menu/actions';
-import { actionCreator } from '../redux/helpers';
-import AddressSearch from '../address';
-import { isBrowser } from '../utils';
-import { moduleMiddleware } from '../module';
-import { requestProduct, resetProduct } from '../product/customize/actions';
-import { getProductForCustomize } from '../product/customize/selectors';
-import { fetchRestaurantByGeo } from '../restaurant/actions';
-import { injectSaga } from '../redux';
+import Menu from '@/menu';
+import { fetchDefaultMenu } from '@/menu/actions';
+import { actionCreator } from '@/redux/helpers';
+import AddressSearch from '@/address';
+import { isBrowser } from '@/utils';
+import { moduleMiddleware } from '@/module';
+import { requestProduct, resetProduct } from '@/product/customize/actions';
+import { getProductForCustomize } from '@/product/customize/selectors';
+import { fetchRestaurantByGeo } from '@/restaurant/actions';
+import { injectSaga } from '@/redux';
 
 const CustomizeProduct = dynamic(
-  () => import('../product/customize').then(moduleMiddleware('product')),
+  () => import('@/product/customize').then(moduleMiddleware('product')),
   { ssr: false }
 );
 
@@ -45,8 +45,9 @@ export default function Home() {
     dispatch(requestProduct({ product }));
   }
 
+  // well well well, is this want we want at the end or just a dirty hack?
   const onStartOrder = () => {
-    import('../restaurant/saga').then((mod) => {
+    import('@/restaurant/saga').then((mod) => {
       injectSaga('rest', mod.restaurantSaga);
 
       dispatch(fetchRestaurantByGeo({ lat: 0, lng: 0 }))

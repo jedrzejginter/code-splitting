@@ -8,11 +8,16 @@ export default class MyDocument extends Document {
     return (
       <Html>
         <Head>
-          <Global styles={css`
-            html { font-size: 62.5% }
-            body { font-size: 1.6rem }
-            *, *:after, *:before { box-sizing: border-box }
-          `} />
+          <Global
+            styles={css`
+              html { font-size: 62.5% }
+              body { font-size: 1.6rem }
+
+              *,
+              *:after,
+              *:before { box-sizing: border-box }
+            `}
+          />
         </Head>
         <body>
           <div id="modal-root" />

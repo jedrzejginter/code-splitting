@@ -1,5 +1,5 @@
 import { SET_MENU } from './actions';
-import { mapObject } from '../utils';
+import { mapObject } from '@/utils';
 
 const initialState = {
   categories: {},

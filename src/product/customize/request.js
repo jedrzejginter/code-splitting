@@ -1,4 +1,4 @@
-import { apiClient } from "../../api";
+import { apiClient } from "@/api";
 
 export function requestNewProduct({ product, restaurantId }) {
   return apiClient.put(

@@ -1,4 +1,4 @@
-import { injectSaga, injectReducer } from '../redux';
+import { injectSaga, injectReducer } from '@/redux';
 
 export function moduleMiddleware(id) {
   return (mod) => {

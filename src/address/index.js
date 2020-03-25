@@ -1,8 +1,9 @@
+import debounce from "lodash.debounce";
 import { useState, useCallback } from "react";
+
 import { singleStringSearch } from "./actions";
 import { useDispatch, useSelector } from "react-redux";
 import { getSingleStringTopResults } from "./selectors";
-import debounce from "lodash.debounce";
 
 export default function AddressSearch({ current, onChooseAddress }) {
   const dispatch = useDispatch();
@@ -25,8 +26,24 @@ export default function AddressSearch({ current, onChooseAddress }) {
       <input onChange={onChange} type="text" value={val} />
       <ul>
         {results.map((r) => (
-          <li className={current && current.name === r.name ? 'green-bg' : undefined} key={r.name}>
-            {r.name} <span onClick={() => onChooseAddress(r)} className="btn-like">use it</span>
+          <li
+            css={{ background: current && current.name === r.name ? 'green' : undefined}}
+            key={r.name}
+          >
+            {r.name}{' '}
+            <button
+              css={{
+                cursor: 'pointer',
+                border: '1px solid #000',
+                ':hover': {
+                  backgroundColor: '#000',
+                  color: '#fff'
+                }
+              }}
+              onClick={() => onChooseAddress(r)}
+            >
+              use it
+            </button>
           </li>
         ))}
       </ul>

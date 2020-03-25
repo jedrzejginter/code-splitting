@@ -3,12 +3,12 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { Provider, useSelector } from 'react-redux';
 
-import { getIsOrderStarted } from '../order/selectors';
-import { store } from '../redux';
+import { getIsOrderStarted } from '@/order/selectors';
+import { store } from '@/redux';
 
-import { moduleMiddleware } from '../module';
+import { moduleMiddleware } from '@/module';
 
-const Basket = dynamic(() => import("../basket").then(moduleMiddleware('basket')), { ssr: false });
+const Basket = dynamic(() => import("@/basket").then(moduleMiddleware('basket')), { ssr: false });
 
 function WrappedBasket() {
   const isStarted = useSelector(getIsOrderStarted);

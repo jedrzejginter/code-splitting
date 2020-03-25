@@ -1,6 +1,6 @@
 import { all, call, put, takeEvery } from 'redux-saga/effects';
 
-import Modal from "../../modal";
+import Modal from "@/modal";
 import { requestNewProduct } from './request';
 import { fetchProduct, setConfig, FETCH_REQUEST } from './actions';
 import { useEffect } from 'react';

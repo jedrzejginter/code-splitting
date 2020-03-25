@@ -5,7 +5,7 @@ import { all, put, takeLatest } from 'redux-saga/effects';
 import { ADD_PRODUCT, RESET_BASKET, REMOVE_BASKET_LINE, removeBasketLine } from './actions';
 import { wrapProduct } from "./utils";
 import { getBasketLines } from './selectors';
-import { getAddressForOrder } from '../order/selectors';
+import { getAddressForOrder } from '@/order/selectors';
 
 export default function Basket({ hasButton, hasDeletion }) {
   const dispatch = useDispatch();
@@ -25,7 +25,17 @@ export default function Basket({ hasButton, hasDeletion }) {
         {lines.map((l, index) => (
           <li key={index}>
             {l.product.name} ({l.product.price} pln) {hasDeletion &&
-              <span className="btn-like" onClick={() => dispatch(removeBasketLine({ uuid: l.uuid }))}>X</span>
+              <button
+                css={{
+                  appearance: 'none',
+                  border: '1px solid red',
+                  cursor: 'pointer',
+                  ':hover': {
+                    backgroundColor: 'red',
+                    color: '#fff'
+                  }
+                }}
+                onClick={() => dispatch(removeBasketLine({ uuid: l.uuid }))}>X</button>
             }
           </li>
         ))}

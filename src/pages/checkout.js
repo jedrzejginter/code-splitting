@@ -1,13 +1,13 @@
 import dynamic from 'next/dynamic';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { resetBasket } from '../basket/actions';
-import { submitOrder } from '../order/actions';
-import { getIsOrderStarted } from '../order/selectors';
-import { moduleMiddleware } from '../module';
-import { resetPayments } from '../payments/actions';
+import { resetBasket } from '@/basket/actions';
+import { submitOrder } from '@/order/actions';
+import { getIsOrderStarted } from '@/order/selectors';
+import { moduleMiddleware } from '@/module';
+import { resetPayments } from '@/payments/actions';
 
-const Payments = dynamic(() => import('../payments').then(moduleMiddleware('payments')), {
+const Payments = dynamic(() => import('@/payments').then(moduleMiddleware('payments')), {
   ssr: false,
   loading: () => "Loading payments information..."
 });
