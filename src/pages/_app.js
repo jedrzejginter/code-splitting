@@ -24,8 +24,11 @@ function WrappedBasket() {
 export default function MyApp({ Component, pageProps }) {
   return (
     <Provider store={store}>
+      <div>
+        <img babel-inject-etag src="/images/logo.svg" />
+      </div>
       <Link as="/" href="/index"><a>Home</a></Link> |{' '}
-      <Link as="/checkout" href="/checkout"><a>Checkout page</a></Link>
+      <Link as="/checkout" href="/checkout"><a>Checkout page -></a></Link>
       <WrappedBasket />
       <Component {...pageProps} />
     </Provider>
