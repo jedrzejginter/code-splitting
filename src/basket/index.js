@@ -13,7 +13,7 @@ export default function Basket({ hasButton, hasDeletion }) {
   const addressForOrder = useSelector(getAddressForOrder);
 
   return (
-    <div style={{ border: '2px solid black', borderRadius: 10, padding: 10 }}>
+    <div css={{ border: '2px solid black', borderRadius: 10, padding: 10 }}>
       <h3>Basket!</h3>
       {addressForOrder && (
         <div>

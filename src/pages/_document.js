@@ -1,3 +1,4 @@
+import { css, Global } from '@emotion/core';
 import Document, { Html, Head, Main, NextScript } from 'next/document'
 
 export default class MyDocument extends Document {
@@ -6,7 +7,13 @@ export default class MyDocument extends Document {
   render() {
     return (
       <Html>
-        <Head />
+        <Head>
+          <Global styles={css`
+            html { font-size: 62.5% }
+            body { font-size: 1.6rem }
+            *, *:after, *:before { box-sizing: border-box }
+          `} />
+        </Head>
         <body>
           <div id="modal-root" />
           <Main />

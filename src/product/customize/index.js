@@ -23,10 +23,15 @@ export default function CustomizeProduct({ product, onClose }) {
         <div key={index}>
           <h3>{c.optionTitle}</h3>
           {c.availableItems.map((i, index) => (
-            <span key={index} style={{
-              backgroundColor: i.isDefault ? '#aaa' : undefined,
-              display: 'inline-block', margin: 5, border: '1px dotted blue'
-              }}>
+            <span
+              key={index}
+              css={{
+                backgroundColor: i.isDefault ? '#aaa' : undefined,
+                border: '1px dotted blue',
+                display: 'inline-block',
+                margin: 5,
+              }}
+            >
               {i.name}
             </span>
           ))}

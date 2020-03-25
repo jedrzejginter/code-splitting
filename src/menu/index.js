@@ -10,11 +10,17 @@ export default function Menu({ canAddProduct, onAddProduct, onCustomizeProduct, 
       {categories.map((c) => (
         <section key={c.id}>
           <h4>{c.name}</h4>
-          <ul style={{ display: 'flex', flexWrap: 'wrap', listStyle: 'none', padding: 0, margin: 0 }}>
+          <ul css={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            listStyle: 'none',
+            padding: 0,
+            margin: 0,
+          }}>
             {c.products.map((p) => (
-              <li key={p.id} style={{ border: '1px solid #ccc', margin: 10, padding: 10, width: '25%' }}>
+              <li key={p.id} css={{ border: '1px solid #ccc', margin: 10, padding: 10, width: '25%' }}>
                 {p.name}<br />
-                <button disabled={!canAddProduct} onClick={() => onAddProduct(p)}>Buy me ({p.price} pln)</button>
+                <button css={{ border: '1px solid black' }} disabled={!canAddProduct} onClick={() => onAddProduct(p)}>Buy me ({p.price} pln)</button>
                 {p._isConfigurable && canCustomizeProduct && (
                   <button onClick={() => onCustomizeProduct(p)}>customize</button>
                 )}

@@ -6,17 +6,16 @@ import { Provider, useSelector } from 'react-redux';
 import { getIsOrderStarted } from '../order/selectors';
 import { store } from '../redux';
 
-import '../styles.css'
 import { moduleMiddleware } from '../module';
 
 const Basket = dynamic(() => import("../basket").then(moduleMiddleware('basket')), { ssr: false });
 
 function WrappedBasket() {
   const isStarted = useSelector(getIsOrderStarted);
-  const { route } = useRouter();
+  const { pathname } = useRouter();
 
-  const hasButton = route !== '/checkout';
-  const hasDeletion = route !== '/checkout';
+  const hasButton = pathname !== '/checkout';
+  const hasDeletion = pathname !== '/checkout';
   return isStarted ? <Basket hasDeletion={hasDeletion} hasButton={hasButton} /> : null;
 }
 

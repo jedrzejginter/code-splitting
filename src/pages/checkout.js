@@ -24,12 +24,12 @@ export default function Checkout() {
 
  return (
     <div>
-      <p>
+      <p css={{ color: 'red' }}>
         Your order is ready to submit!<br />
         Pick a payment method a click button below.
       </p>
       {isStarted && <Payments />}
-      <button style={{ marginTop: 20 }} onClick={isStarted ? onSubmitOrder : undefined}>submit</button>
+      <button css={{ marginTop: 20 }} onClick={isStarted ? onSubmitOrder : undefined}>submit</button>
     </div>
   );
 }
