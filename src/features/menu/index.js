@@ -1,11 +1,8 @@
 import { memo } from "react";
-import { useSelector } from "react-redux";
 
-import { getCategoriesWithProducts } from "./selectors";
-
-export default function Menu({ canAddProduct, onAddProduct, onCustomizeProduct, canCustomizeProduct }) {
-  const categories = useSelector(getCategoriesWithProducts);
-
+export default function Menu({
+  categories, canAddProduct, onAddProduct, onCustomizeProduct, canCustomizeProduct
+}) {
   return (
     <div>
       {categories.map((c) => (

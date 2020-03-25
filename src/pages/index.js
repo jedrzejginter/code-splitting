@@ -1,5 +1,4 @@
 import dynamic from 'next/dynamic';
-import Link from 'next/link';
 import { useState, useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -19,12 +18,21 @@ import { requestProduct, resetProduct } from '@/features/product/customize/actio
 import { getProductForCustomize } from '@/features/product/customize/selectors';
 import { fetchRestaurantByGeo } from '@/features/restaurant/actions';
 
+import { getDefaultMenu } from '@/features/menu/api/get-default-menu';
+import { getCategoriesWithProducts } from '@/features/menu/selectors';
+import { stripDownMenu } from '@/features/menu/utils';
+
 const CustomizeProduct = dynamic(
   () => import('@/features/product/customize').then(moduleMiddleware('product')),
   { ssr: false }
 );
 
-export default function Home() {
+export async function getStaticProps() {
+  const res = await getDefaultMenu();
+  return { props: stripDownMenu(res.menu) };
+}
+
+export default function Home(props) {
   const dispatch = useDispatch();
   const [addressForOrder, setAddressForOrder] = useState(null);
 
@@ -33,7 +41,7 @@ export default function Home() {
   const productForCustomize = useSelector(getProductForCustomize);
 
   useEffect(() => {
-    dispatch(fetchDefaultMenu());
+    // dispatch(fetchDefaultMenu());
   }, []);
 
   const closeModal = () => {
@@ -62,6 +70,13 @@ export default function Home() {
     }));
   };
 
+  const categoriesWithProducts = getCategoriesWithProducts({
+    menu: {
+      categories: props.categories,
+      products: props.products,
+    }
+  });
+
   return (
     <div>
       {!isStarted &&
@@ -73,6 +88,7 @@ export default function Home() {
         </button>
       )}
       <Menu
+        categories={categoriesWithProducts}
         canAddProduct={isStarted}
         canCustomizeProduct={isStarted}
         onAddProduct={onAddProduct}
