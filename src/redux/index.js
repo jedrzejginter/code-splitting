@@ -5,7 +5,7 @@ import { all, fork } from 'redux-saga/effects';
 
 import { addressReducer } from '@/features/address/reducer';
 import { addressSaga } from '@/features/address/saga';
-import defaultMenuSaga from '@/features/menu/default-menu/saga';
+import defaultMenuSaga from '@/features/menu/saga';
 import { reducer as menuReducer } from '@/features/menu/reducer';
 import { reducer as orderReducer } from '@/features/order';
 import { productReducer } from '@/features/product/customize/reducer';

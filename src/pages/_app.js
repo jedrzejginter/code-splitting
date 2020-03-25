@@ -6,20 +6,21 @@ import { Provider, useSelector } from 'react-redux';
 import { moduleMiddleware } from '@/module';
 import { store } from '@/redux';
 
-import { getIsOrderStarted } from '@/features/order/selectors';
+import { getAddressForOrder, getIsOrderStarted } from '@/features/order/selectors';
 
 const Basket = dynamic(() => import("@/features/basket").then(moduleMiddleware('basket')), { ssr: false });
 
 function WrappedBasket() {
   const isStarted = useSelector(getIsOrderStarted);
+  const address = useSelector(getAddressForOrder);
   const { pathname } = useRouter();
 
   const hasButton = pathname !== '/checkout';
   const hasDeletion = pathname !== '/checkout';
-  return isStarted ? <Basket hasDeletion={hasDeletion} hasButton={hasButton} /> : null;
+
+  return isStarted ? <Basket address={address ? address.name : undefined } hasDeletion={hasDeletion} hasButton={hasButton} /> : null;
 }
 
-// This default export is required in a new `pages/_app.js` file.
 export default function MyApp({ Component, pageProps }) {
   return (
     <Provider store={store}>
