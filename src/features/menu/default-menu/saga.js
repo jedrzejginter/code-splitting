@@ -1,7 +1,10 @@
 import { all, call, put, takeLatest } from "redux-saga/effects";
-import { getDefaultMenu } from './get-default-menu';
 
+// DON'T LIKE THAT
+// It looks we have a problem with responsibility separation
 import { setMenu } from "../actions";
+
+import { getDefaultMenu } from './get-default-menu';
 
 export default function* defaultMenuSaga() {
   yield all([

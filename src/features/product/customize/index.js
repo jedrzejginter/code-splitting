@@ -1,10 +1,11 @@
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { all, call, put, takeEvery } from 'redux-saga/effects';
 
 import Modal from "@/modal";
-import { requestNewProduct } from './request';
+
 import { fetchProduct, setConfig, FETCH_REQUEST } from './actions';
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { requestNewProduct } from './request';
 import { getProductConfig } from './selectors';
 
 export default function CustomizeProduct({ product, onClose }) {

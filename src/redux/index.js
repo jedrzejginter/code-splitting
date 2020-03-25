@@ -3,12 +3,12 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import createSagaMiddleware from 'redux-saga';
 import { all, fork } from 'redux-saga/effects';
 
-import { addressReducer } from '@/address/reducer';
-import { addressSaga } from '@/address/saga';
-import { reducer as orderReducer } from '@/order';
-import defaultMenuSaga from '@/menu/default-menu/saga';
-import { reducer as menuReducer } from '@/menu/reducer';
-import { productReducer } from '@/product/customize/reducer';
+import { addressReducer } from '@/features/address/reducer';
+import { addressSaga } from '@/features/address/saga';
+import defaultMenuSaga from '@/features/menu/default-menu/saga';
+import { reducer as menuReducer } from '@/features/menu/reducer';
+import { reducer as orderReducer } from '@/features/order';
+import { productReducer } from '@/features/product/customize/reducer';
 
 export const loadState = () => {
   try {

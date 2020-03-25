@@ -1,8 +1,8 @@
 import debounce from "lodash.debounce";
 import { useState, useCallback } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 import { singleStringSearch } from "./actions";
-import { useDispatch, useSelector } from "react-redux";
 import { getSingleStringTopResults } from "./selectors";
 
 export default function AddressSearch({ current, onChooseAddress }) {

@@ -2,10 +2,12 @@ import Link from 'next/link';
 import { useSelector, useDispatch } from 'react-redux';
 import { all, put, takeLatest } from 'redux-saga/effects';
 
+// THIS SHOULD NOT BE HERE!
+import { getAddressForOrder } from '@/features/order/selectors';
+
 import { ADD_PRODUCT, RESET_BASKET, REMOVE_BASKET_LINE, removeBasketLine } from './actions';
-import { wrapProduct } from "./utils";
 import { getBasketLines } from './selectors';
-import { getAddressForOrder } from '@/order/selectors';
+import { wrapProduct } from "./utils";
 
 export default function Basket({ hasButton, hasDeletion }) {
   const dispatch = useDispatch();

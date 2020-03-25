@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { SET_PAYMENT_METHOD, RESET_PAYMENTS, setPaymentMethod } from './actions';
 import { useDispatch, useSelector } from "react-redux";
+
+import { SET_PAYMENT_METHOD, RESET_PAYMENTS, setPaymentMethod } from './actions';
 import { getPaymentMethod } from "./selectors";
 
 export default function Payments() {

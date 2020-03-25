@@ -3,25 +3,24 @@ import Link from 'next/link';
 import { useState, useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { addProduct } from '@/basket/actions';
-import { getBasketLines } from '@/basket/selectors';
-
-import { startOrder } from '@/order/actions';
-import { getIsOrderStarted, getAddressForOrder } from '@/order/selectors';
-
-import Menu from '@/menu';
-import { fetchDefaultMenu } from '@/menu/actions';
+import { injectSaga } from '@/redux';
 import { actionCreator } from '@/redux/helpers';
-import AddressSearch from '@/address';
 import { isBrowser } from '@/utils';
 import { moduleMiddleware } from '@/module';
-import { requestProduct, resetProduct } from '@/product/customize/actions';
-import { getProductForCustomize } from '@/product/customize/selectors';
-import { fetchRestaurantByGeo } from '@/restaurant/actions';
-import { injectSaga } from '@/redux';
+
+import { addProduct } from '@/features/basket/actions';
+import { getBasketLines } from '@/features/basket/selectors';
+import { startOrder } from '@/features/order/actions';
+import { getIsOrderStarted, getAddressForOrder } from '@/features/order/selectors';
+import Menu from '@/features/menu';
+import { fetchDefaultMenu } from '@/features/menu/actions';
+import AddressSearch from '@/features/address';
+import { requestProduct, resetProduct } from '@/features/product/customize/actions';
+import { getProductForCustomize } from '@/features/product/customize/selectors';
+import { fetchRestaurantByGeo } from '@/features/restaurant/actions';
 
 const CustomizeProduct = dynamic(
-  () => import('@/product/customize').then(moduleMiddleware('product')),
+  () => import('@/features/product/customize').then(moduleMiddleware('product')),
   { ssr: false }
 );
 
@@ -47,7 +46,7 @@ export default function Home() {
 
   // well well well, is this want we want at the end or just a dirty hack?
   const onStartOrder = () => {
-    import('@/restaurant/saga').then((mod) => {
+    import('@/features/restaurant/saga').then((mod) => {
       injectSaga('rest', mod.restaurantSaga);
 
       dispatch(fetchRestaurantByGeo({ lat: 0, lng: 0 }))

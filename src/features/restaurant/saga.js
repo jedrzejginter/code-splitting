@@ -1,6 +1,7 @@
-import { getRestaurantByGeolocation } from "./get-by-coords";
 import { all, call, takeLatest } from "redux-saga/effects";
+
 import { FETCH_RESTAURANT_GEO } from "./actions";
+import { getRestaurantByGeolocation } from "./get-by-coords";
 
 export function* restaurantSaga() {
   yield all([
