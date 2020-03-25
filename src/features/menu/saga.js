@@ -1,6 +1,6 @@
 import { all, call, put, takeLatest } from "redux-saga/effects";
 
-import { getDefaultMenu } from './default-menu/get-default-menu';
+import { getDefaultMenu } from './api/get-default-menu';
 
 import { setMenu } from "./actions";
 

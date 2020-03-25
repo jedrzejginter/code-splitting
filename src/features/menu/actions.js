@@ -1,4 +1,4 @@
-import { actionCreator } from "@/redux/helpers";
+import { actionCreator } from "@/redux/actions";
 
 export const SET_MENU = 'SET_MENU';
 export const FETCH_DEFAULT_MENU = 'FETCH_DEFAULT_MENU';

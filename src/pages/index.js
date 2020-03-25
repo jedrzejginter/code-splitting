@@ -4,7 +4,7 @@ import { useState, useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { injectSaga } from '@/redux';
-import { actionCreator } from '@/redux/helpers';
+import { actionCreator } from '@/redux/actions';
 import { isBrowser } from '@/utils';
 import { moduleMiddleware } from '@/module';
 

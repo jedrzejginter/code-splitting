@@ -1,4 +1,4 @@
-import { actionCreator } from "@/redux/helpers";
+import { actionCreator } from "@/redux/actions";
 
 export const FETCH_RESTAURANT_GEO = 'FETCH_RESTAURANT_GEO';
 

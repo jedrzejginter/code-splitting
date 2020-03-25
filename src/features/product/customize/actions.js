@@ -1,4 +1,4 @@
-import { actionCreator } from "@/redux/helpers";
+import { actionCreator } from "@/redux/actions";
 
 export const REQUEST_PRODUCT = 'REQUEST_PRODUCT';
 export const FETCH_REQUEST = 'FETCH_REQUEST';

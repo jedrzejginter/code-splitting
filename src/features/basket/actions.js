@@ -1,4 +1,4 @@
-import { actionCreator } from '@/redux/helpers';
+import { actionCreator } from '@/redux/actions';
 
 export const ADD_PRODUCT = 'ADD_PRODUCT';
 export const REMOVE_BASKET_LINE = 'REMOVE_BASKET_LINE';
